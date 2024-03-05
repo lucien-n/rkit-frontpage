@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { urls } from '$lib/urls';
 	import { Button } from '$shadcn/button';
-	import '../../app.pcss';
+	import '../app.pcss';
 	import type { LayoutData } from './$types';
 
 	export let data: LayoutData;
