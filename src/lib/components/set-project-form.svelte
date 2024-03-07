@@ -4,13 +4,17 @@
 	import * as Form from '$shadcn/form';
 	import { Input } from '$shadcn/input';
 	import { signinSchema } from '$shared/modules/auth/schemas/signin.schema';
-	import type { SetProjectSchema } from '$shared/modules/projects/schemas/set-project.schema';
+	import type {
+		SetProjectInput,
+		SetProjectSchema
+	} from '$shared/modules/projects/schemas/set-project.schema';
 	import { Plus } from 'radix-icons-svelte';
 	import { createEventDispatcher } from 'svelte';
 	import { superForm, type Infer, type SuperValidated } from 'sveltekit-superforms';
 	import { zodClient } from 'sveltekit-superforms/adapters';
 
 	export let data: SuperValidated<Infer<SetProjectSchema>>;
+	export let content: SetProjectInput;
 
 	const dispatch = createEventDispatcher();
 
@@ -23,6 +27,8 @@
 	});
 
 	const { form: formData, enhance, submitting } = form;
+
+	formData.subscribe((formContent) => (content = formContent));
 </script>
 
 <form action={getAction('setProject')} method="POST" use:enhance>
