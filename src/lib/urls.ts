@@ -1,7 +1,8 @@
 export const urls = {
 	home: '/',
 	signin: '/signin',
-	signout: '/signout'
+	signout: '/signout',
+	newProject: '/admin/new/project'
 };
 
 export const actions = {
