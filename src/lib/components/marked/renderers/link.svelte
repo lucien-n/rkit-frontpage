@@ -4,7 +4,7 @@
 	export let href: string;
 </script>
 
-<a {href} class="w-fit border-b border-b-transparent font-semibold hover:border-foreground">
+<a {href} class="w-fit gap-1 border-b border-b-transparent font-semibold hover:border-foreground">
 	<div class="inline-block">
 		<Link2 />
 	</div>
