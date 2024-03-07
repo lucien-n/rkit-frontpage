@@ -11,23 +11,23 @@
 A dynamic listing website built with [SvelteKit](https://kit.svelte.dev/) for browsing and searching various listings like products, services, or classified ads.
 
 ## Features
-- **Responsive Design**: Optimized for desktop, tablet, and mobile devices.
-- **Dynamic Filtering**: Easily filter listings by category, price, location, and more.
-- **User Authentication**: Register, login, and manage listings securely.
-- **Admin Dashboard**: Manage listings, users, and site settings.
-- **Search Functionality**: Powerful search engine with advanced filters.
-- **Interactive Maps**: Visualize listings on interactive maps with location data.
-- **Social Sharing**: Share listings on social media platforms.
-- **Customizable Templates**: Customize templates and components for branding.
-- **SEO Optimization**: Improve visibility with built-in SEO features.
+ **Responsive Design**: Optimized for desktop, tablet, and mobile devices.
+ **Dynamic Filtering**: Easily filter listings by category, price, location, and more.
+ **User Authentication**: Register, login, and manage listings securely.
+ **Admin Dashboard**: Manage listings, users, and site settings.
+ **Search Functionality**: Powerful search engine with advanced filters.
+ **Interactive Maps**: Visualize listings on interactive maps with location data.
+ **Social Sharing**: Share listings on social media platforms.
+ **Customizable Templates**: Customize templates and components for branding.
+ **SEO Optimization**: Improve visibility with built-in SEO features.
 
 ## Technologies
-- [SvelteKit](https://kit.svelte.dev/): Frontend framework
-- [Tailwind CSS](https://tailwindcss.com/): CSS framework
-- [Firebase](https://firebase.google.com/): Backend services
-- [Mapbox](https://www.mapbox.com/): Mapping platform
-- [Algolia](https://www.algolia.com/): Search-as-a-Service platform
-- [GitHub Actions](https://github.com/features/actions): CI/CD pipeline
+ [SvelteKit](https://kit.svelte.dev/): Frontend framework
+ [Tailwind CSS](https://tailwindcss.com/): CSS framework
+ [Firebase](https://firebase.google.com/): Backend services
+ [Mapbox](https://www.mapbox.com/): Mapping platform
+ [Algolia](https://www.algolia.com/): Search-as-a-Service platform
+ [GitHub Actions](https://github.com/features/actions): CI/CD pipeline
 
 ## Status
 In development. Expected launch: [Month, Year].
