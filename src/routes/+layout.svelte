@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { urls } from '$lib/urls';
 	import { Button } from '$shadcn/button';
+	import { Toaster } from '$shadcn/sonner';
 	import '../app.pcss';
 	import type { LayoutData } from './$types';
 	import { ModeWatcher } from 'mode-watcher';
@@ -11,6 +12,7 @@
 </script>
 
 <ModeWatcher defaultMode="dark" />
+<Toaster richColors />
 
 {#if session}
 	<form method="post" action="{urls.signout}?" class="absolute right-8 top-0">
