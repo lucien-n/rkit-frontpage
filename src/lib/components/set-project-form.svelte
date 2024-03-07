@@ -31,7 +31,7 @@
 	formData.subscribe((formContent) => (content = formContent));
 </script>
 
-<form action={getAction('setProject')} method="POST" use:enhance>
+<form action={getAction('setProject')} method="POST" class="h-full" use:enhance>
 	<Form.Field {form} name="name" class="w-full">
 		<Form.Control let:attrs>
 			<Form.Label>Name</Form.Label>
@@ -55,6 +55,7 @@
 				bind:value={$formData.description}
 				placeholder="Project description"
 				class="w-full resize-none overflow-hidden"
+				minRows={3}
 				required
 			/>
 		</Form.Control>
@@ -63,7 +64,7 @@
 	</Form.Field>
 
 	<br />
-	<Form.Button class="mb-2 flex gap-2 self-end" disabled={$submitting}>
+	<Form.Button class="mb-auto flex w-full gap-2" disabled={$submitting}>
 		<Plus />
 		Create
 	</Form.Button>
