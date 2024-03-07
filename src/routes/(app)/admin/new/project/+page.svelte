@@ -6,6 +6,7 @@
 	import type { SetProjectInput } from '$shared/modules/projects/schemas/set-project.schema';
 	import { writable, type Writable } from 'svelte/store';
 	import type { PageData } from './$types';
+	import { onFormFailure } from '$lib/helpers';
 
 	export let data: PageData;
 
@@ -16,7 +17,7 @@
 	<div class="flex h-2/3 w-full gap-8">
 		<Card.Root class="h-fit w-full pt-5 lg:w-2/3">
 			<Card.Content>
-				<SetProjectForm data={data.form} bind:content={$content} />
+				<SetProjectForm data={data.form} bind:content={$content} on:failure={onFormFailure} />
 			</Card.Content>
 			<Card.Footer></Card.Footer>
 		</Card.Root>

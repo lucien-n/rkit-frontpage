@@ -1,3 +1,5 @@
+import { toast } from 'svelte-sonner';
+
 export const copyToClipboard = (
 	text: string,
 	onSuccess: (message: string, value: unknown) => void = () => undefined,
@@ -7,4 +9,11 @@ export const copyToClipboard = (
 		(value) => onSuccess(`Successfully copied "${text}" to your clipboard`, value),
 		(reason) => onError(`Error while copying "${text}" to your clipboard`, reason)
 	);
+};
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const onFormFailure = (event: any) => {
+	const { message } = event.detail.data;
+	if (!message) return;
+	toast.error(message);
 };
