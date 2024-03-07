@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	import SetProjectForm from './set-project-form.svelte';
+	import SetProjectForm from '$lib/components/set-project-form.svelte';
 	import * as Card from '$shadcn/card';
 	import ProjectCard from '$lib/components/project-card.svelte';
 	import { Separator } from '$shadcn/separator';
