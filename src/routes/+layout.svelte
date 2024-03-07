@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { urls } from '$lib/urls';
-	import { Button } from '$shadcn/button';
+	import AdminNav from '$lib/components/admin-nav.svelte';
+
 	import { Toaster } from '$shadcn/sonner';
 	import '../app.pcss';
 	import type { LayoutData } from './$types';
@@ -15,9 +15,7 @@
 <Toaster richColors />
 
 {#if session}
-	<form method="post" action="{urls.signout}?" class="absolute right-8 top-0">
-		<Button type="submit" class="rounded-t-none border-t-0">Sign Out</Button>
-	</form>
+	<AdminNav />
 {/if}
 
 <main class="h-full w-full">
