@@ -14,7 +14,7 @@
 
 <div class="container flex h-full w-full items-center justify-center">
 	<div class="flex h-2/3 w-full gap-8">
-		<Card.Root class="w-full pt-5 lg:w-2/3">
+		<Card.Root class="h-fit w-full pt-5 lg:w-2/3">
 			<Card.Content>
 				<SetProjectForm data={data.form} bind:content={$content} />
 			</Card.Content>
