@@ -39,7 +39,7 @@ export class AuthController {
 			if (user?.name) session = await AuthController.createSession(user.name);
 		}
 
-		const isValid = this.verifyToken(session.token);
+		const isValid = session.token && this.verifyToken(session.token);
 		if (!isValid) {
 			await remult.repo(Session).delete(session.id);
 

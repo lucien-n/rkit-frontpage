@@ -9,8 +9,8 @@ export class Session {
 	expiresAt!: Date;
 
 	@Fields.string()
-	token!: string;
+	token?: string;
 
 	@Fields.string()
-	name!: string;
+	name?: string;
 }
