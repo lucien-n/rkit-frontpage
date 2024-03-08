@@ -24,3 +24,7 @@ export const getAction = <T extends keyof Actions>(action: T, params?: ActionPar
 	}
 	return url;
 };
+
+export const protectedRoutes = {
+	requireAuth: ['/octo']
+};
