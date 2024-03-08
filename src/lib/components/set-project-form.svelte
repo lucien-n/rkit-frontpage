@@ -1,5 +1,5 @@
 <script lang="ts">
-	import DynamicTextarea from '$lib/components/dynamic-textarea.svelte';
+	import DynamicTextarea from '$ui/dynamic-textarea.svelte';
 	import { getAction } from '$lib/urls';
 	import * as Form from '$shadcn/form';
 	import { Input } from '$shadcn/input';
