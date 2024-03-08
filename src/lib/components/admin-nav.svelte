@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { urls } from '$lib/urls';
+	import { urls } from '$lib/utils/urls';
 	import { Button } from '$shadcn/button';
 	import SetProjectDialog from '$ui/set-project/set-project-dialog.svelte';
 	import { Exit, Home, Plus } from 'radix-icons-svelte';

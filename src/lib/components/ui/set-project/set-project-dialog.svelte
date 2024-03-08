@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { getAction } from '$lib/urls';
+	import { getAction } from '$lib/utils/urls';
 	import { Button } from '$shadcn/button';
 	import * as Card from '$shadcn/card';
 	import * as Form from '$shadcn/form';

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { remtry } from '$lib/remtry';
+	import { remtry } from '$lib/utils/remtry';
 	import * as AlertDialog from '$shadcn/alert-dialog';
 	import { buttonVariants } from '$shadcn/button';
 	import * as Card from '$shadcn/card';

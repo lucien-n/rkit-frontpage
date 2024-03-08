@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { copyToClipboard } from '$lib/helpers';
+	import { copyToClipboard } from '$lib/utils/helpers';
 	import { Button } from '$shadcn/button';
 	import { ClipboardCopy } from 'radix-icons-svelte';
 	import { toast } from 'svelte-sonner';

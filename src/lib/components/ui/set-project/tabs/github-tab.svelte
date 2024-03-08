@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { getBranches, getRepositories } from '$lib/github';
+	import { getBranches, getRepositories } from '$lib/utils/github';
 	import * as Form from '$shadcn/form';
 	import type { SetProjectInput } from '$shared/modules/projects/schemas/set-project.schema';
 	import Combobox from '$ui/combobox/combobox.svelte';

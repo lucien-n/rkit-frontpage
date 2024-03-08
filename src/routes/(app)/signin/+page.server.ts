@@ -3,7 +3,7 @@ import type { Actions, PageServerLoad } from './$types';
 import { zod } from 'sveltekit-superforms/adapters';
 import { signinSchema } from '$shared/modules/auth/schemas/signin.schema';
 import { fail, redirect } from '@sveltejs/kit';
-import { urls } from '$lib/urls';
+import { urls } from '$lib/utils/urls';
 
 export const load: PageServerLoad = async ({ locals }) => {
 	if (await locals.remauth.getSession()) redirect(303, urls.home);

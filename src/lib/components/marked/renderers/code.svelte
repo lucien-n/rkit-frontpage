@@ -3,7 +3,7 @@
 	import { markedHighlight } from 'marked-highlight';
 	import hljs from 'highlight.js';
 	import { Badge } from '$shadcn/badge';
-	import { copyToClipboard } from '$lib/helpers';
+	import { copyToClipboard } from '$lib/utils/helpers';
 	import { toast } from 'svelte-sonner';
 	import { Button } from '$shadcn/button';
 	import { ClipboardCopy } from 'radix-icons-svelte';
