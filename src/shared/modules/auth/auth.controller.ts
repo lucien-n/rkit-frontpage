@@ -31,15 +31,16 @@ export class AuthController {
 	}
 
 	@BackendMethod({ apiPrefix: 'auth', allowed: false })
-	static async getSession(id: string) {
+	static async getSession(id: string): Promise<Session | null> {
 		const user = remult.user;
 
 		let session = await remult.repo(Session).findFirst({ id }, { include: { user: true } });
 		if (!session) {
 			if (user?.name) session = await AuthController.createSession(user.name);
+			else return null;
 		}
 
-		const isValid = session.token && this.verifyToken(session.token);
+		const isValid = session?.token && this.verifyToken(session.token);
 		if (!isValid) {
 			await remult.repo(Session).delete(session.id);
 
@@ -51,7 +52,7 @@ export class AuthController {
 	}
 
 	@BackendMethod({ apiPrefix: 'auth', allowed: false })
-	static async createSession(name: string) {
+	static async createSession(name: string): Promise<Session> {
 		const token = this.generateToken(name);
 		const session = await remult.repo(Session).insert({ name, token });
 
