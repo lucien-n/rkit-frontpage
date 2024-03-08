@@ -10,6 +10,14 @@ export default {
 		description: {
 			min: 0,
 			max: 1024
+		},
+		repo: {
+			min: 1,
+			max: 64
+		},
+		branch: {
+			min: 1,
+			max: 64
 		}
 	}
-} satisfies Rule<Project, 'name' | 'description'>;
+} satisfies Rule<Project, 'name' | 'description' | 'repo' | 'branch'>;

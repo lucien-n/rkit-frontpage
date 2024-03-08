@@ -16,4 +16,10 @@ export class Project {
 
 	@Fields.string()
 	description!: string;
+
+	@Fields.string()
+	repo!: string;
+
+	@Fields.string()
+	branch!: string
 }

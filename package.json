@@ -41,6 +41,7 @@
 	"dependencies": {
 		"bits-ui": "^0.19.3",
 		"clsx": "^2.1.0",
+		"cmdk-sv": "^0.0.15",
 		"formsnap": "^0.5.1",
 		"highlight.js": "^11.9.0",
 		"jsonwebtoken": "^9.0.2",
