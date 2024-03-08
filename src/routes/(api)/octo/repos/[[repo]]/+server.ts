@@ -6,7 +6,7 @@ export const GET: RequestHandler = async (event) => {
 
 	const { data } = await octokit.request('GET /users/{username}/repos', {
 		username: owner,
-		per_page: 15
+		per_page: 10
 	});
 	const repositories = data
 		.map(({ name }) => name)
