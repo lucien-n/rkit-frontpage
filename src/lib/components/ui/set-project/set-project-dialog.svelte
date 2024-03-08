@@ -13,6 +13,7 @@
 	import { zodClient } from 'sveltekit-superforms/adapters';
 	import DescriptionTab from './tabs/description-tab.svelte';
 	import GithubTab from './tabs/github-tab.svelte';
+	import { clickOutside } from '$lib/utils/clickOutside';
 
 	export let open: boolean = false;
 
@@ -68,58 +69,63 @@
 </div>
 
 {#if open}
-	<div class="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm">
+	<div
+		class="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm"
+		transition:fade={{ duration: 100 }}
+	>
 		<div class="flex h-full w-full items-center justify-center">
 			<Tabs.Root bind:value={currentTabValue} class="h-2/3 w-full md:w-2/3 xl:w-1/3">
-				<Tabs.List class="w-full">
-					{#each tabs as { label, value } (value)}
-						<Tabs.Trigger {value} class="w-full">{label}</Tabs.Trigger>
-					{/each}
-				</Tabs.List>
-				<div class="my-6" />
+				<div class="h-full w-full" use:clickOutside={{ onClickOutside: () => (open = false) }}>
+					<Tabs.List class="w-full">
+						{#each tabs as { label, value } (value)}
+							<Tabs.Trigger {value} class="w-full">{label}</Tabs.Trigger>
+						{/each}
+					</Tabs.List>
+					<div class="my-6" />
 
-				<form action={getAction('setProject')} method="post" class="h-full" use:enhance>
-					{#key currentTabIndex}
-						<Card.Root class="h-full w-full">
-							<div in:fade class="flex h-full w-full flex-col">
-								<Card.Header class="text-3xl font-semibold">
-									{currentTab.label}
-								</Card.Header>
-								<Card.Content>
-									{#each tabs as { value, ref } (value)}
-										<Tabs.Content {value}>
-											<svelte:component this={ref} {form} {formData} />
-										</Tabs.Content>
-									{/each}
-								</Card.Content>
-								<Card.Footer class="mt-auto flex w-full gap-3">
-									{#if currentTabIndex !== 0}
-										<Button variant="secondary" class="w-1/3 gap-2" on:click={handlePreviousTab}>
-											<span class="mt-[.1rem]">
-												<CaretLeft />
-											</span>
-											Previous
-										</Button>
-									{/if}
+					<form action={getAction('setProject')} method="post" class="h-full" use:enhance>
+						{#key currentTabIndex}
+							<Card.Root class="h-full w-full">
+								<div in:fade class="flex h-full w-full flex-col">
+									<Card.Header class="text-3xl font-semibold">
+										{currentTab.label}
+									</Card.Header>
+									<Card.Content>
+										{#each tabs as { value, ref } (value)}
+											<Tabs.Content {value}>
+												<svelte:component this={ref} {form} {formData} />
+											</Tabs.Content>
+										{/each}
+									</Card.Content>
+									<Card.Footer class="mt-auto flex w-full gap-3">
+										{#if currentTabIndex !== 0}
+											<Button variant="secondary" class="w-1/3 gap-2" on:click={handlePreviousTab}>
+												<span class="mt-[.1rem]">
+													<CaretLeft />
+												</span>
+												Previous
+											</Button>
+										{/if}
 
-									{#if currentTabValue === tabs[tabs.length - 1].value}
-										<Form.Button class="flex w-full gap-2" disabled={$submitting}>
-											<Plus />
-											Create
-										</Form.Button>
-									{:else}
-										<Button class="ml-auto w-1/3 gap-2" on:click={handleNextTab}>
-											Next
-											<span class="mt-[.1rem]">
-												<CaretRight />
-											</span>
-										</Button>
-									{/if}
-								</Card.Footer>
-							</div>
-						</Card.Root>
-					{/key}
-				</form>
+										{#if currentTabValue === tabs[tabs.length - 1].value}
+											<Form.Button class="flex w-full gap-2" disabled={$submitting}>
+												<Plus />
+												Create
+											</Form.Button>
+										{:else}
+											<Button class="ml-auto w-1/3 gap-2" on:click={handleNextTab}>
+												Next
+												<span class="mt-[.1rem]">
+													<CaretRight />
+												</span>
+											</Button>
+										{/if}
+									</Card.Footer>
+								</div>
+							</Card.Root>
+						{/key}
+					</form>
+				</div>
 			</Tabs.Root>
 		</div>
 	</div>

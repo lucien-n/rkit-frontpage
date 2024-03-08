@@ -1,9 +1,12 @@
-export const clickOutside = (node: HTMLElement) => {
+type ClickOutsideOptions = {
+	onClickOutside?: (event: MouseEvent) => void;
+};
+
+export const clickOutside = (node: HTMLElement, { onClickOutside }: ClickOutsideOptions = {}) => {
 	const handleClick = (event: MouseEvent) => {
 		// @ts-expect-error temp
 		if (node && !node.contains(event.target) && !event.defaultPrevented) {
-			// @ts-expect-error temp
-			node.dispatchEvent(new CustomEvent('click_outside', node));
+			onClickOutside && onClickOutside(event);
 		}
 	};
 
