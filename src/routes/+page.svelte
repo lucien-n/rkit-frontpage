@@ -4,7 +4,7 @@
 	import { ProjectsController } from '$shared/modules/projects/projects.controller';
 	import { onMount } from 'svelte';
 
-	let getProjects: Promise<Project[]> | null = null;
+	let getProjects: Promise<Project[] | undefined>;
 
 	onMount(() => {
 		getProjects = ProjectsController.find();
