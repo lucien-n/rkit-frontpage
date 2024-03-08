@@ -6,7 +6,7 @@
 	import * as Form from '$shadcn/form';
 	import * as Tabs from '$shadcn/tabs';
 	import { setProjectSchema } from '$shared/modules/projects/schemas/set-project.schema';
-	import { Plus } from 'radix-icons-svelte';
+	import { Plus, CaretLeft, CaretRight } from 'radix-icons-svelte';
 	import { createEventDispatcher } from 'svelte';
 	import { fade } from 'svelte/transition';
 	import { superForm } from 'sveltekit-superforms';
@@ -87,19 +87,28 @@
 										</Tabs.Content>
 									{/each}
 								</Card.Content>
-								<Card.Footer class="mt-auto flex gap-3">
+								<Card.Footer class="mt-auto flex w-full gap-3">
 									{#if currentTabIndex !== 0}
-										<Button variant="secondary" class="w-full gap-2" on:click={handlePreviousTab}
-											>Previous</Button
-										>
+										<Button variant="secondary" class="w-1/3 gap-2" on:click={handlePreviousTab}>
+											<span class="mt-[.1rem]">
+												<CaretLeft />
+											</span>
+											Previous
+										</Button>
 									{/if}
+
 									{#if currentTabValue === tabs[tabs.length - 1].value}
 										<Form.Button class="flex w-full gap-2" disabled={$submitting}>
 											<Plus />
 											Create
 										</Form.Button>
 									{:else}
-										<Button class="w-full gap-2" on:click={handleNextTab}>Next</Button>
+										<Button class="ml-auto w-1/3 gap-2" on:click={handleNextTab}>
+											Next
+											<span class="mt-[.1rem]">
+												<CaretRight />
+											</span>
+										</Button>
 									{/if}
 								</Card.Footer>
 							</div>
