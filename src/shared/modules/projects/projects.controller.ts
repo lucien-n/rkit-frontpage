@@ -1,4 +1,11 @@
-import { BackendMethod, Controller, remult, type FindOptions, type MembersToInclude } from 'remult';
+import {
+	BackendMethod,
+	Controller,
+	remult,
+	type FindOptions,
+	type MembersToInclude,
+	Allow
+} from 'remult';
 import { Project } from './project.entity';
 import { setProjectSchema, type SetProjectInput } from './schemas/set-project.schema';
 import { parseZSchema } from '$shared/helpers/zod';
@@ -36,5 +43,13 @@ export class ProjectsController {
 
 		const project = await remult.repo(Project).insert(inputs);
 		return remult.repo(Project).toJson(project);
+	}
+
+	@BackendMethod({ apiPrefix: 'projects', allowed: Allow.authenticated })
+	static async delete(id: string): Promise<void> {
+		const project = await ProjectsController.findOne(id);
+		if (!project) throw `Project "${id}" not found`;
+
+		await remult.repo(Project).delete(id);
 	}
 }
