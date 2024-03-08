@@ -7,7 +7,7 @@ export const handleRouteProtection: Handle = async ({ event, resolve }) => {
 	for (const route of protectedRoutes.requireAuth) {
 		if (pathname.startsWith(route)) {
 			const session = await event.locals.remauth.getSession();
-			if (!session) redirect(401, urls.home);
+			if (!session) redirect(303, urls.home);
 		}
 	}
 
