@@ -1,10 +1,10 @@
 import { remultSveltekit } from 'remult/remult-sveltekit';
 import { createPostgresDataProvider } from 'remult/postgres';
-import { DATABASE_URL } from '$env/static/private';
+import { POSTGRES_URL } from '$env/static/private';
 import { controllers, entities } from '$shared';
 
 export const _api = remultSveltekit({
-	dataProvider: createPostgresDataProvider({ connectionString: DATABASE_URL }),
+	dataProvider: createPostgresDataProvider({ connectionString: POSTGRES_URL }),
 	entities,
 	controllers,
 	admin: true,
