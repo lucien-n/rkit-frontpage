@@ -4,10 +4,10 @@
 	import { Input } from '$shadcn/input';
 	import DynamicTextarea from '$ui/dynamic-textarea.svelte';
 	import * as Form from '$shadcn/form';
+	import type { Writable } from 'svelte/store';
 
 	export let form: SuperForm<SetProjectInput>;
-
-	const { form: formData } = form;
+	export let formData: Writable<SetProjectInput>;
 </script>
 
 <Form.Field {form} name="name" class="w-full">

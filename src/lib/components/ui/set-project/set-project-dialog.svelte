@@ -9,7 +9,7 @@
 	import { Plus, CaretLeft, CaretRight } from 'radix-icons-svelte';
 	import { createEventDispatcher } from 'svelte';
 	import { fade } from 'svelte/transition';
-	import { superForm } from 'sveltekit-superforms';
+	import SuperDebug, { superForm } from 'sveltekit-superforms';
 	import { zodClient } from 'sveltekit-superforms/adapters';
 	import DescriptionTab from './tabs/description-tab.svelte';
 	import GithubTab from './tabs/github-tab.svelte';
@@ -23,10 +23,11 @@
 		validationMethod: 'oninput',
 		onResult: ({ result }) => {
 			dispatch(result.type, result);
+			if (result.type === 'success') open = false;
 		}
 	});
 
-	const { enhance, submitting, message } = form;
+	const { form: formData, enhance, submitting, message } = form;
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	type Tab = { label: string; value: string; ref: any };
@@ -62,6 +63,10 @@
 	<div class="message">{$message}</div>
 {/if}
 
+<div class="fixed z-[100]">
+	<SuperDebug data={form.form} />
+</div>
+
 {#if open}
 	<div class="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm">
 		<div class="flex h-full w-full items-center justify-center">
@@ -83,7 +88,7 @@
 								<Card.Content>
 									{#each tabs as { value, ref } (value)}
 										<Tabs.Content {value}>
-											<svelte:component this={ref} {form} />
+											<svelte:component this={ref} {form} {formData} />
 										</Tabs.Content>
 									{/each}
 								</Card.Content>

@@ -14,10 +14,8 @@ export const POST: RequestHandler = async (event) => {
 
 	if (!form.valid) return actionResult('failure', { form }, 400);
 
-	const { name, description } = form.data;
-
 	try {
-		await ProjectsController.set({ name, description }, projectId);
+		await ProjectsController.set(form.data, projectId);
 	} catch (e) {
 		return actionResult('failure', { message: e ?? 'Internal error', form }, 400);
 	}

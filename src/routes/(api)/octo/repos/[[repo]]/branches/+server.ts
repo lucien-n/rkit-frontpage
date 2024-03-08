@@ -5,10 +5,11 @@ export const GET: RequestHandler = async (event) => {
 	const { repo } = event.params;
 	if (!repo) return error(404);
 
-	const branches = await octokit.request('GET /repos/{owner}/{repo}/branches', {
+	const { data } = await octokit.request('GET /repos/{owner}/{repo}/branches', {
 		owner,
 		repo
 	});
+	const branches = data.map(({ name }) => name);
 
 	return json(branches);
 };

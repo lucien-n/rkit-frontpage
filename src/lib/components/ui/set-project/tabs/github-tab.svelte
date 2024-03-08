@@ -8,14 +8,14 @@
 	import type { SetProjectInput } from '$shared/modules/projects/schemas/set-project.schema';
 	import { CaretSort, Check } from 'radix-icons-svelte';
 	import { onMount, tick } from 'svelte';
+	import type { Writable } from 'svelte/store';
 	import type { SuperForm } from 'sveltekit-superforms';
 
 	export let form: SuperForm<SetProjectInput>;
+	export let formData: Writable<SetProjectInput>;
 
-	const { form: formData } = form;
-
-	let repositories: { name: string }[] = [];
-	let branches: { name: string }[] = [];
+	let repositories: string[] = [];
+	let branches: string[] = [];
 
 	onMount(async () => {
 		repositories = await getRepositories();
@@ -61,7 +61,7 @@
 				role="combobox"
 				{...attrs}
 			>
-				{repositories.find((f) => f.name === $formData.repo)?.name ?? 'Select repository'}
+				{repositories.find((name) => name === $formData.repo) ?? 'Select repository'}
 				<CaretSort class="ml-2 h-4 w-4 shrink-0 opacity-50" />
 			</Popover.Trigger>
 			<input hidden value={$formData.repo} name={attrs.name} />
@@ -72,11 +72,9 @@
 				<Command.Empty>No repositories found.</Command.Empty>
 				<Command.Group>
 					{#each repositories as repo}
-						<Command.Item value={repo.name} onSelect={() => handleSelectRepository(repo.name, ids)}>
-							{repo.name}
-							<Check
-								class={cn('ml-auto h-4 w-4', repo.name !== $formData.repo && 'text-transparent')}
-							/>
+						<Command.Item value={repo} onSelect={() => handleSelectRepository(repo, ids)}>
+							{repo}
+							<Check class={cn('ml-auto h-4 w-4', repo !== $formData.repo && 'text-transparent')} />
 						</Command.Item>
 					{/each}
 				</Command.Group>
@@ -85,7 +83,7 @@
 	</Popover.Root>
 	<Form.FieldErrors />
 </Form.Field>
-
+<br />
 <Form.Field {form} name="branch" class="flex flex-col">
 	<Popover.Root bind:open={openBranches} let:ids>
 		<Form.Control let:attrs>
@@ -99,7 +97,7 @@
 				role="combobox"
 				{...attrs}
 			>
-				{branches.find((f) => f.name === $formData.branch)?.name ?? 'Select branch'}
+				{branches.find((branch) => branch === $formData.branch) ?? 'Select branch'}
 				<CaretSort class="ml-2 h-4 w-4 shrink-0 opacity-50" />
 			</Popover.Trigger>
 			<input hidden value={$formData.branch} name={attrs.name} />
@@ -110,13 +108,10 @@
 				<Command.Empty>No branch found.</Command.Empty>
 				<Command.Group>
 					{#each branches as branch}
-						<Command.Item value={branch.name} onSelect={() => handleSelectBranch(branch.name, ids)}>
-							{branch.name}
+						<Command.Item value={branch} onSelect={() => handleSelectBranch(branch, ids)}>
+							{branch}
 							<Check
-								class={cn(
-									'ml-auto h-4 w-4',
-									branch.name !== $formData.branch && 'text-transparent'
-								)}
+								class={cn('ml-auto h-4 w-4', branch !== $formData.branch && 'text-transparent')}
 							/>
 						</Command.Item>
 					{/each}
