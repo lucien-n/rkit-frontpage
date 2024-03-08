@@ -7,7 +7,7 @@
 	export let project: Partial<Project>;
 </script>
 
-<Card.Root class="h-fit w-full lg:w-2/3">
+<Card.Root class="h-full w-full">
 	<Card.Header class="text-3xl font-bold">{project?.name ?? 'Lorem Ipsum'}</Card.Header>
 	<Card.Content>
 		<SvelteMarkdown source={project?.description ?? 'Lorem ipsum dolor si amet'} {renderers} />
