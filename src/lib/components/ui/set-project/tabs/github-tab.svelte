@@ -20,11 +20,17 @@
 
 	const getSelectOptions = (items: string[]): SelectOption[] =>
 		items.map((repo) => ({ label: repo, value: repo }));
+
+	const now = () => new Date().getTime();
+
+	const searchCooldown = 250;
+	let lastSearchAt = now();
 </script>
 
 <Form.Field {form} name="repo" class="flex flex-col">
 	<Combobox
 		label="Repository"
+		bind:value={$formData.repo}
 		items={getSelectOptions(repositories)}
 		empty="No repositories found"
 		searchPlaceholder="Search repositories..."
@@ -32,7 +38,11 @@
 		onSelectItem={async (repo) => {
 			branches = await getBranches(repo);
 		}}
-		bind:value={$formData.repo}
+		onSearch={async (search) => {
+			if (now() - lastSearchAt < searchCooldown) return;
+			lastSearchAt = now();
+			repositories = await getRepositories(search);
+		}}
 	/>
 	<Form.FieldErrors />
 </Form.Field>
@@ -40,8 +50,8 @@
 <Form.Field {form} name="branch" class="flex flex-col">
 	<Combobox
 		label="Branches"
-		items={getSelectOptions(branches)}
 		bind:value={$formData.branch}
+		items={getSelectOptions(branches)}
 		empty="No branches found."
 		searchPlaceholder="Search branches..."
 		placeholder="Select branch"

@@ -7,6 +7,7 @@
 	import * as Form from '$shadcn/form';
 	import type { SelectOption } from './types';
 	import { CaretSort, Check } from 'radix-icons-svelte';
+	import { writable, type Writable } from 'svelte/store';
 
 	export let items: SelectOption[];
 	export let value: string;
@@ -18,6 +19,10 @@
 	export let searchPlaceholder: string = 'Search...';
 
 	export let onSelectItem: (item: string) => void = () => ({});
+	export let onSearch: (search: string) => void = () => ({});
+
+	let searchValue: Writable<string> = writable('');
+	searchValue.subscribe(onSearch);
 
 	const closeAndFocusTrigger = (triggerId: string) => {
 		open = false;
@@ -52,7 +57,12 @@
 	</Form.Control>
 	<Popover.Content class="w-[400px] p-0">
 		<Command.Root>
-			<Command.Input autofocus placeholder={searchPlaceholder} class="h-9" />
+			<Command.Input
+				autofocus
+				placeholder={searchPlaceholder}
+				class="h-9"
+				bind:value={$searchValue}
+			/>
 			<Command.Empty>{empty}</Command.Empty>
 			<Command.Group>
 				{#each items as item}
