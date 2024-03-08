@@ -13,7 +13,7 @@
 	import { zodClient } from 'sveltekit-superforms/adapters';
 	import DescriptionTab from './tabs/description-tab.svelte';
 	import GithubTab from './tabs/github-tab.svelte';
-	import { clickOutside } from '$lib/utils/clickOutside';
+	import { clickOutside } from '$lib/directives/clickOutside';
 
 	export let open: boolean = false;
 
