@@ -13,8 +13,9 @@ const config = {
 		// See https://kit.svelte.dev/docs/adapters for more information about adapters.
 		adapter: adapter(),
 		alias: {
-			$shadcn: "./src/lib/shadcn/components/ui",
-			$shared: "./src/shared"
+			$shadcn: './src/lib/shadcn/components/ui',
+			$shared: './src/shared',
+			$ui: './src/lib/components/ui'
 		}
 	}
 };
