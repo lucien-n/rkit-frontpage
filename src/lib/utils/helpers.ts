@@ -1,3 +1,4 @@
+import type { SelectOption } from '$ui/combobox/types';
 import { toast } from 'svelte-sonner';
 
 export const copyToClipboard = (
@@ -17,3 +18,6 @@ export const onFormFailure = (event: any) => {
 	if (!message) return;
 	toast.error(message);
 };
+
+export const getSelectOptions = (items: string[]): SelectOption[] =>
+	items.map((item) => ({ label: item, value: item }));

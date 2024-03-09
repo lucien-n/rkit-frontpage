@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { getBranches, getRepositories } from '$lib/utils/github';
+	import { getSelectOptions } from '$lib/utils/helpers';
 	import * as Form from '$shadcn/form';
 	import type { SetProjectInput } from '$shared/modules/projects/schemas/set-project.schema';
 	import Combobox from '$ui/combobox/combobox.svelte';
-	import type { SelectOption } from '$ui/combobox/types';
 	import { onMount } from 'svelte';
 	import type { Writable } from 'svelte/store';
 	import type { SuperForm } from 'sveltekit-superforms';
@@ -20,9 +20,6 @@
 			getBranchs = getBranches($formData.repo);
 		}
 	});
-
-	const getSelectOptions = (items: string[]): SelectOption[] =>
-		items.map((repo) => ({ label: repo, value: repo }));
 
 	const searchRepoCooldown: number = 200;
 	let searchRepo: string = '';
