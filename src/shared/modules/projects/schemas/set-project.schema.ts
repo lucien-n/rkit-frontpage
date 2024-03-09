@@ -5,11 +5,11 @@ import projectRules from '../project.rules';
 export const setProjectSchema = z
 	.object({
 		id: z.string().cuid().optional(),
-		name: getZString('name', projectRules.field.name).default('').optional(),
-		description: getZString('description', projectRules.field.description).default('').optional(),
-		repo: getZString('repo', projectRules.field.repo).default('').optional(),
-		branch: getZString('branch', projectRules.field.branch).default('').optional(),
-		hidden: z.boolean().default(false).optional()
+		name: getZString('name', projectRules.field.name).default(''),
+		description: getZString('description', projectRules.field.description).default(''),
+		repo: getZString('repo', projectRules.field.repo).default(''),
+		branch: getZString('branch', projectRules.field.branch).default(''),
+		hidden: z.boolean().default(false)
 	})
 	.refine(
 		({ id, ...rest }) =>
