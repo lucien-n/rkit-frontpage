@@ -11,11 +11,11 @@
 	export let form: SuperForm<SetProjectInput>;
 	export let formData: Writable<SetProjectInput>;
 
-	let repositories: string[] = [];
+	let getRepos: Promise<string[]> | null = null;
 	let branches: string[] = [];
 
 	onMount(async () => {
-		repositories = await getRepositories();
+		getRepos = getRepositories();
 	});
 
 	const getSelectOptions = (items: string[]): SelectOption[] =>
@@ -27,6 +27,7 @@
 	let searchingRepo: boolean = false;
 
 	const handleRepositorySearch = (search: string) => {
+		if (searchRepo === search) return;
 		searchRepo = search;
 
 		if (searchRepoTimeout) {
@@ -35,25 +36,29 @@
 		searchingRepo = true;
 
 		searchRepoTimeout = setTimeout(async () => {
-			repositories = await getRepositories(searchRepo);
+			getRepos = getRepositories(searchRepo);
 			searchingRepo = false;
 		}, searchRepoCooldown);
 	};
 </script>
 
 <Form.Field {form} name="repo" class="flex flex-col">
-	<Combobox
-		label="Repository"
-		bind:value={$formData.repo}
-		items={getSelectOptions(repositories)}
-		empty={searchingRepo ? 'Loading repositories...' : 'No repositories found'}
-		searchPlaceholder="Search repositories..."
-		placeholder="Select repository"
-		onSelectItem={async (repo) => {
-			branches = await getBranches(repo);
-		}}
-		onSearch={handleRepositorySearch}
-	/>
+	{#await getRepos}
+		<p>Fetching repositories</p>
+	{:then repos}
+		<Combobox
+			label="Repository"
+			bind:value={$formData.repo}
+			items={getSelectOptions(repos ?? [])}
+			empty={searchingRepo ? 'Loading repositories...' : 'No repositories found'}
+			searchPlaceholder="Search repositories..."
+			placeholder="Select repository"
+			onSelectItem={async (repo) => {
+				branches = await getBranches(repo);
+			}}
+			onSearch={handleRepositorySearch}
+		/>
+	{/await}
 	<Form.FieldErrors />
 </Form.Field>
 <br />
