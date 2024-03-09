@@ -59,7 +59,7 @@
 <br />
 <Form.Field {form} name="branch" class="flex flex-col">
 	<Combobox
-		label="Branches"
+		label="Branch"
 		bind:value={$formData.branch}
 		items={getSelectOptions(branches)}
 		empty="No branches found."
