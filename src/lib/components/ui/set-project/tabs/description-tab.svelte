@@ -45,7 +45,7 @@
 		<Form.Label>Url</Form.Label>
 		<Input
 			{...attrs}
-			bind:value={$formData.name}
+			bind:value={$formData.url}
 			type="text"
 			placeholder="Project url"
 			class="w-full"
