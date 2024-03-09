@@ -11,13 +11,13 @@
 	export let form: SuperForm<SetProjectInput>;
 	export let formData: Writable<SetProjectInput>;
 
-	let getRepos: Promise<string[]> | [] = [];
-	let getBranchs: Promise<string[]> | [] = [];
+	let repos: string[] = [];
+	let branches: string[] = [];
 
 	onMount(async () => {
-		getRepos = getRepositories();
+		repos = await getRepositories();
 		if ($formData.repo) {
-			getBranchs = getBranches($formData.repo);
+			branches = await getBranches($formData.repo);
 		}
 	});
 
@@ -36,44 +36,36 @@
 		searchingRepo = true;
 
 		searchRepoTimeout = setTimeout(async () => {
-			getRepos = getRepositories(searchRepo);
+			repos = await getRepositories(searchRepo);
 			searchingRepo = false;
 		}, searchRepoCooldown);
 	};
 </script>
 
 <Form.Field {form} name="repo" class="flex flex-col">
-	{#await getRepos}
-		<p>Fetching repositories</p>
-	{:then repos}
-		<Combobox
-			label="Repository"
-			bind:value={$formData.repo}
-			items={getSelectOptions(repos)}
-			empty={searchingRepo ? 'Loading repositories...' : 'No repositories found'}
-			searchPlaceholder="Search repositories..."
-			placeholder="Select repository"
-			onSelectItem={async (repo) => {
-				getBranchs = getBranches(repo);
-			}}
-			onSearch={handleRepositorySearch}
-		/>
-	{/await}
+	<Combobox
+		label="Repository"
+		bind:value={$formData.repo}
+		items={getSelectOptions(repos)}
+		empty={searchingRepo ? 'Fetching repositories...' : 'No repositories found'}
+		searchPlaceholder="Search repositories..."
+		placeholder="Select repository"
+		onSelectItem={async (repo) => {
+			branches = await getBranches(repo);
+		}}
+		onSearch={handleRepositorySearch}
+	/>
 	<Form.FieldErrors />
 </Form.Field>
 <br />
 <Form.Field {form} name="branch" class="flex flex-col">
-	{#await getBranchs}
-		<p>Fetching repositories</p>
-	{:then branches}
-		<Combobox
-			label="Branch"
-			bind:value={$formData.branch}
-			items={getSelectOptions(branches)}
-			empty="No branches found."
-			searchPlaceholder="Search branches..."
-			placeholder="Select branch"
-		/>
-	{/await}
+	<Combobox
+		label="Branch"
+		bind:value={$formData.branch}
+		items={getSelectOptions(branches ?? [])}
+		empty="No branches found."
+		searchPlaceholder="Search branches..."
+		placeholder="Select branch"
+	/>
 	<Form.FieldErrors />
 </Form.Field>
