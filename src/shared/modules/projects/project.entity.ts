@@ -11,6 +11,9 @@ export class Project {
 	@Fields.updatedAt()
 	updatedAt!: Date;
 
+	@Fields.boolean(() => ({ defaultValue: false }))
+	hidden!: boolean;
+
 	@Fields.string()
 	name!: string;
 
@@ -21,5 +24,5 @@ export class Project {
 	repo!: string;
 
 	@Fields.string()
-	branch!: string
+	branch!: string;
 }

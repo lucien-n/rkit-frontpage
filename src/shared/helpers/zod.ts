@@ -11,11 +11,7 @@ export const parseZSchema = <Schema extends ZodType>(input: z.infer<Schema>, sch
 	return result.data as z.infer<Schema>;
 };
 
-export const getZString = (
-	name: string,
-	{ min, max }: FieldRule,
-	defaultValue: string | undefined = undefined
-): z.ZodString => {
+export const getZString = (name: string, { min, max }: FieldRule): z.ZodString => {
 	const capitalizedName = capitalize(name);
 	const zString = z
 		.string({
@@ -24,8 +20,6 @@ export const getZString = (
 		})
 		.min(min, `${capitalizedName} needs to be at least ${min} characters`)
 		.max(max, `${capitalizedName} needs to be at most ${max} characters`);
-
-	if (defaultValue) zString.default(defaultValue);
 
 	return zString;
 };

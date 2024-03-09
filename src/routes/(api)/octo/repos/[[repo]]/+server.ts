@@ -14,5 +14,6 @@ export const GET: RequestHandler = async (event) => {
 		.map(({ name }) => name)
 		.filter((name) => new RegExp(`${repo || ''}`, 'i').test(name));
 
+	console.log(data, repositories);
 	return json(repositories);
 };

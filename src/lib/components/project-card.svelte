@@ -1,28 +1,12 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { remtry } from '$lib/utils/remtry';
-	import * as AlertDialog from '$shadcn/alert-dialog';
-	import { buttonVariants } from '$shadcn/button';
 	import * as Card from '$shadcn/card';
 	import type { Project } from '$shared/modules/projects/project.entity';
-	import { ProjectsController } from '$shared/modules/projects/projects.controller';
-	import { Trash } from 'radix-icons-svelte';
 	import SvelteMarkdown from 'svelte-markdown';
-	import { toast } from 'svelte-sonner';
 	import { renderers } from './marked';
+	import ProjectCardToolbar from './project-card-toolbar.svelte';
 
 	export let project: Partial<Project> & Required<Pick<Project, 'id'>>;
-
-	const handleDelete = async () => {
-		remtry(
-			async () => {
-				if (!project?.id) return;
-				await ProjectsController.delete(project.id);
-			},
-			() => toast.success(`Successfully delete "${project?.name ?? project.id}"`),
-			() => toast.error(`Couldn't delete "${project?.name ?? project.id}"`)
-		);
-	};
 </script>
 
 <Card.Root class="h-full w-full">
@@ -33,24 +17,7 @@
 	<Card.Footer>
 		<div class="ml-auto">
 			{#if $page.data.session}
-				<AlertDialog.Root>
-					<AlertDialog.Trigger>
-						<button class={buttonVariants({ variant: 'destructive', size: 'icon' })}>
-							<Trash />
-						</button>
-					</AlertDialog.Trigger>
-					<AlertDialog.Content>
-						<AlertDialog.Header>
-							<AlertDialog.Title>
-								Delete <strong>{project?.name ?? project.id}</strong>?
-							</AlertDialog.Title>
-						</AlertDialog.Header>
-						<AlertDialog.Footer>
-							<AlertDialog.Cancel>Cancel</AlertDialog.Cancel>
-							<AlertDialog.Action on:click={handleDelete}>Confirm</AlertDialog.Action>
-						</AlertDialog.Footer>
-					</AlertDialog.Content>
-				</AlertDialog.Root>
+				<ProjectCardToolbar {project} />
 			{/if}
 		</div>
 	</Card.Footer>
