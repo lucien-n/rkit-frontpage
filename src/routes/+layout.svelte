@@ -6,6 +6,7 @@
 	import { fly } from 'svelte/transition';
 	import '../app.pcss';
 	import type { LayoutData } from './$types';
+	import Nav from '$lib/components/nav.svelte';
 
 	export let data: LayoutData;
 
@@ -17,6 +18,8 @@
 
 {#if session}
 	<AdminNav />
+{:else}
+	<Nav />
 {/if}
 
 {#key $page.url.pathname}
