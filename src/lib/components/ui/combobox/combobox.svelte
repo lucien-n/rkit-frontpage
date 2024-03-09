@@ -10,7 +10,7 @@
 	import { writable, type Writable } from 'svelte/store';
 
 	export let items: SelectOption[];
-	export let value: string;
+	export let value: string | undefined;
 	export let open: boolean = false;
 
 	export let label: string = 'Items';
