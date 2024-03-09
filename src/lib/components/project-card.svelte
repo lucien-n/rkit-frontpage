@@ -15,7 +15,10 @@
 <Card.Root class="h-full w-full">
 	<Card.Header class="text-3xl font-bold">
 		{#if project.url}
-			<a class={cn(buttonVariants({ variant: 'link' }), 'w-fit gap-2 text-3xl')} href={project.url}>
+			<a
+				class={cn(buttonVariants({ variant: 'link' }), `w-fit gap-2 px-0 text-3xl`)}
+				href={project.url}
+			>
 				{project?.name ?? 'Lorem Ipsum'}
 				<ExternalLink size={20} />
 			</a>
