@@ -13,7 +13,6 @@ export const GET: RequestHandler = async (event) => {
 	const repositories = data.items
 		.map(({ name }) => name)
 		.filter((name) => new RegExp(`${repo || ''}`, 'i').test(name));
-	console.log(data, query);
 
 	return json(repositories);
 };
