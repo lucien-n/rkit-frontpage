@@ -22,6 +22,8 @@
 	<Nav />
 {/if}
 
+<div class="absolute left-0 top-0 m-1 font-bold text-muted-foreground">In dev</div>
+
 {#key $page.url.pathname}
 	<main in:fly={{ duration: 200, y: -200 }} class="h-full w-full">
 		<slot />
