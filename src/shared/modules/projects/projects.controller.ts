@@ -27,7 +27,7 @@ export class ProjectsController {
 		return remult.repo(Project).toJson(project);
 	}
 
-	@BackendMethod({ apiPrefix: 'projects', allowed: false })
+	@BackendMethod({ apiPrefix: 'projects', allowed: Allow.authenticated })
 	static async set(input: SetProjectInput, id?: string): Promise<Project | undefined> {
 		const inputs = parseZSchema(input, setProjectSchema);
 

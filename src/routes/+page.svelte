@@ -8,7 +8,7 @@
 	let getProjects: Promise<Project[] | undefined>;
 
 	onMount(() => {
-		getProjects = ProjectsController.find();
+		getProjects = ProjectsController.find({ where: { hidden: false } });
 	});
 </script>
 

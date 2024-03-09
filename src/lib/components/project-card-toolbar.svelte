@@ -24,10 +24,10 @@
 		remtry(
 			async () => {
 				if (!project?.id) return;
-				await ProjectsController.delete(project.id);
+				await ProjectsController.set({ hidden: true }, project.id);
 			},
-			() => toast.success(`Successfully delete "${project?.name ?? project.id}"`),
-			() => toast.error(`Couldn't delete "${project?.name ?? project.id}"`)
+			() => toast.success(`"${project?.name ?? project.id}" is now hidden`),
+			() => toast.error(`Couldn't hide "${project?.name ?? project.id}"`)
 		);
 	};
 </script>
