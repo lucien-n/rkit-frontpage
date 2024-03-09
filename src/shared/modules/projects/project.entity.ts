@@ -21,6 +21,9 @@ export class Project {
 	description!: string;
 
 	@Fields.string()
+	url!: string;
+
+	@Fields.string()
 	repo!: string;
 
 	@Fields.string()

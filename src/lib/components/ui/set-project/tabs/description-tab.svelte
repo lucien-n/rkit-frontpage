@@ -40,3 +40,18 @@
 	<Form.Description />
 	<Form.FieldErrors />
 </Form.Field>
+<Form.Field {form} name="url" class="w-full">
+	<Form.Control let:attrs>
+		<Form.Label>Url</Form.Label>
+		<Input
+			{...attrs}
+			bind:value={$formData.name}
+			type="text"
+			placeholder="Project url"
+			class="w-full"
+			required
+		/>
+	</Form.Control>
+	<Form.Description />
+	<Form.FieldErrors />
+</Form.Field>

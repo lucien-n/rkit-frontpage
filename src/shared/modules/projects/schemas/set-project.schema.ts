@@ -7,9 +7,10 @@ export const setProjectSchema = z
 		id: z.string().cuid().optional(),
 		name: getZString('name', projectRules.field.name).optional(),
 		description: getZString('description', projectRules.field.description).optional(),
+		url: z.string().url().optional(),
 		repo: getZString('repo', projectRules.field.repo).optional(),
 		branch: getZString('branch', projectRules.field.branch).optional(),
-		hidden: z.boolean().default(false)
+		hidden: z.boolean().default(false).optional()
 	})
 	.refine(
 		({ id, ...rest }) =>
