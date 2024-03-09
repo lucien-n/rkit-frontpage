@@ -21,10 +21,24 @@
 	const getSelectOptions = (items: string[]): SelectOption[] =>
 		items.map((repo) => ({ label: repo, value: repo }));
 
-	const now = () => new Date().getTime();
+	const searchRepoCooldown: number = 200;
+	let searchRepo: string = '';
+	let searchRepoTimeout: ReturnType<typeof setTimeout> | null = null;
+	let searchingRepo: boolean = false;
 
-	const searchCooldown = 250;
-	let lastSearchAt = now();
+	const handleRepositorySearch = (search: string) => {
+		searchRepo = search;
+
+		if (searchRepoTimeout) {
+			clearTimeout(searchRepoTimeout);
+		}
+		searchingRepo = true;
+
+		searchRepoTimeout = setTimeout(async () => {
+			repositories = await getRepositories(searchRepo);
+			searchingRepo = false;
+		}, searchRepoCooldown);
+	};
 </script>
 
 <Form.Field {form} name="repo" class="flex flex-col">
@@ -32,17 +46,13 @@
 		label="Repository"
 		bind:value={$formData.repo}
 		items={getSelectOptions(repositories)}
-		empty="No repositories found"
+		empty={searchingRepo ? 'Loading repositories...' : 'No repositories found'}
 		searchPlaceholder="Search repositories..."
 		placeholder="Select repository"
 		onSelectItem={async (repo) => {
 			branches = await getBranches(repo);
 		}}
-		onSearch={async (search) => {
-			if (now() - lastSearchAt < searchCooldown) return;
-			lastSearchAt = now();
-			repositories = await getRepositories(search);
-		}}
+		onSearch={handleRepositorySearch}
 	/>
 	<Form.FieldErrors />
 </Form.Field>
