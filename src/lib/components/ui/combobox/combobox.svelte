@@ -55,7 +55,7 @@
 		</Popover.Trigger>
 		<input hidden {value} name={attrs.name} />
 	</Form.Control>
-	<Popover.Content class="w-[400px] p-0">
+	<Popover.Content class="mt-1 w-[400px] p-0">
 		<Command.Root>
 			<Command.Input
 				autofocus
