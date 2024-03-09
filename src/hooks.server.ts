@@ -4,4 +4,4 @@ import { handleRemult } from './hooks/handleRemult';
 import { handleAuth } from './hooks/handleAuth';
 import { handleRouteProtection } from './hooks/handleRouteProtection';
 
-export const handle: Handle = sequence(handleAuth, handleRouteProtection, handleRemult);
+export const handle: Handle = sequence(handleAuth, handleRemult, handleRouteProtection);
