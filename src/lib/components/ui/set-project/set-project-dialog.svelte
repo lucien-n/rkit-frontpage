@@ -13,8 +13,10 @@
 	import { zodClient } from 'sveltekit-superforms/adapters';
 	import DescriptionTab from './tabs/description-tab.svelte';
 	import GithubTab from './tabs/github-tab.svelte';
+	import { clickOutside } from '$lib/directives/clickOutside';
 
 	export let open: boolean = false;
+	export let closeOnClickOutside: boolean = true;
 
 	const dispatch = createEventDispatcher();
 
@@ -57,6 +59,11 @@
 		if (currentTabIndex === 0) return;
 		currentTabValue = tabs[currentTabIndex - 1]?.value;
 	};
+
+	const handleClickOutside = (event: MouseEvent) => {
+		if ((event.target as HTMLElement).closest('[data-popover-content]')) return;
+		if (closeOnClickOutside) open = false;
+	};
 </script>
 
 {#if $message}
@@ -74,7 +81,12 @@
 	>
 		<div class="flex h-full w-full items-center justify-center">
 			<Tabs.Root bind:value={currentTabValue} class="h-2/3 w-full md:w-2/3 xl:w-1/3">
-				<div class="h-full w-full">
+				<div
+					class="h-full w-full"
+					use:clickOutside={{
+						onClickOutside: handleClickOutside
+					}}
+				>
 					<Tabs.List class="w-full">
 						{#each tabs as { label, value } (value)}
 							<Tabs.Trigger {value} class="w-full">{label}</Tabs.Trigger>
