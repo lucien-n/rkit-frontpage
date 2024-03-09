@@ -1,22 +1,26 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import { clickOutside } from '$lib/directives/clickOutside';
 	import { getAction } from '$lib/utils/urls';
 	import { Button } from '$shadcn/button';
 	import * as Card from '$shadcn/card';
 	import * as Form from '$shadcn/form';
 	import * as Tabs from '$shadcn/tabs';
-	import { setProjectSchema } from '$shared/modules/projects/schemas/set-project.schema';
+	import {
+		setProjectSchema,
+		type SetProjectInput
+	} from '$shared/modules/projects/schemas/set-project.schema';
 	import { CaretLeft, CaretRight, Plus } from 'radix-icons-svelte';
-	import { createEventDispatcher } from 'svelte';
+	import { createEventDispatcher, onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
-	import SuperDebug, { superForm } from 'sveltekit-superforms';
+	import { superForm } from 'sveltekit-superforms';
 	import { zodClient } from 'sveltekit-superforms/adapters';
 	import DescriptionTab from './tabs/description-tab.svelte';
 	import GithubTab from './tabs/github-tab.svelte';
-	import { clickOutside } from '$lib/directives/clickOutside';
 
 	export let open: boolean = false;
 	export let closeOnClickOutside: boolean = true;
+	export let project: SetProjectInput | undefined = undefined;
 
 	const dispatch = createEventDispatcher();
 
@@ -30,6 +34,15 @@
 	});
 
 	const { form: formData, enhance, submitting, message } = form;
+
+	onMount(() => {
+		if (project) {
+			Object.entries(project).forEach(([key, value]) => {
+				if (!value) return;
+				$formData[key] = value;
+			});
+		}
+	});
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	type Tab = { label: string; value: string; ref: any };
@@ -69,10 +82,6 @@
 {#if $message}
 	<div class="message">{$message}</div>
 {/if}
-
-<div class="fixed z-[100]">
-	<SuperDebug data={form.form} />
-</div>
 
 {#if open}
 	<div
@@ -121,7 +130,7 @@
 										{#if currentTabValue === tabs[tabs.length - 1].value}
 											<Form.Button class="flex w-full gap-2" disabled={$submitting}>
 												<Plus />
-												Create
+												{project ? 'Update' : 'Create'}
 											</Form.Button>
 										{:else}
 											<Button class="ml-auto w-1/3 gap-2" on:click={handleNextTab}>

@@ -5,7 +5,8 @@
 	import { toast } from 'svelte-sonner';
 	import * as AlertDialog from '$shadcn/alert-dialog';
 	import { Button, buttonVariants } from '$shadcn/button';
-	import { EyeClosed, Trash } from 'radix-icons-svelte';
+	import { EyeClosed, Pencil1, Trash } from 'radix-icons-svelte';
+	import SetProjectDialog from '$ui/set-project/set-project-dialog.svelte';
 
 	export let project: Partial<Project> & Required<Pick<Project, 'id'>>;
 
@@ -30,27 +31,37 @@
 			() => toast.error(`Couldn't hide "${project?.name ?? project.id}"`)
 		);
 	};
+
+	let openSetProjectDialog = false;
 </script>
 
-<Button variant="outline" size="icon" on:click={toggleHide}>
-	<EyeClosed />
-</Button>
+<div class="absolute right-0 top-0 z-20 hidden gap-1 p-1 transition-all group-hover:flex">
+	<Button variant="outline" size="icon" on:click={() => (openSetProjectDialog = true)}>
+		<Pencil1 />
+	</Button>
 
-<AlertDialog.Root>
-	<AlertDialog.Trigger>
-		<button class={buttonVariants({ variant: 'destructive', size: 'icon' })}>
-			<Trash />
-		</button>
-	</AlertDialog.Trigger>
-	<AlertDialog.Content>
-		<AlertDialog.Header>
-			<AlertDialog.Title>
-				Delete <strong>{project?.name ?? project.id}</strong>?
-			</AlertDialog.Title>
-		</AlertDialog.Header>
-		<AlertDialog.Footer>
-			<AlertDialog.Cancel>Cancel</AlertDialog.Cancel>
-			<AlertDialog.Action on:click={handleDelete}>Confirm</AlertDialog.Action>
-		</AlertDialog.Footer>
-	</AlertDialog.Content>
-</AlertDialog.Root>
+	<Button variant="outline" size="icon" on:click={toggleHide}>
+		<EyeClosed />
+	</Button>
+
+	<AlertDialog.Root>
+		<AlertDialog.Trigger>
+			<button class={buttonVariants({ variant: 'destructive', size: 'icon' })}>
+				<Trash />
+			</button>
+		</AlertDialog.Trigger>
+		<AlertDialog.Content>
+			<AlertDialog.Header>
+				<AlertDialog.Title>
+					Delete <strong>{project?.name ?? project.id}</strong>?
+				</AlertDialog.Title>
+			</AlertDialog.Header>
+			<AlertDialog.Footer>
+				<AlertDialog.Cancel>Cancel</AlertDialog.Cancel>
+				<AlertDialog.Action on:click={handleDelete}>Confirm</AlertDialog.Action>
+			</AlertDialog.Footer>
+		</AlertDialog.Content>
+	</AlertDialog.Root>
+</div>
+
+<SetProjectDialog {project} bind:open={openSetProjectDialog} />

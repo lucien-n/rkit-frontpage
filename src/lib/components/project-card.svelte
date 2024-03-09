@@ -12,13 +12,9 @@
 	export let project: Partial<Project> & Required<Pick<Project, 'id'>>;
 </script>
 
-<Card.Root
-	class="group relative h-full w-full transition-all ease-in-out hover:scale-[101%] hover:shadow-md"
->
+<Card.Root class="group relative h-full w-full transition-all ease-in-out  hover:shadow-md">
 	{#if $page.data.session}
-		<div class="absolute right-0 top-0 z-20 hidden gap-1 p-1 transition-all group-hover:flex">
-			<ProjectCardToolbar {project} />
-		</div>
+		<ProjectCardToolbar {project} />
 	{/if}
 	<Card.Header class="text-3xl font-bold">
 		{#if project.url}
