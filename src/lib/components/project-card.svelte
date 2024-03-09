@@ -12,7 +12,12 @@
 	export let project: Partial<Project> & Required<Pick<Project, 'id'>>;
 </script>
 
-<Card.Root class="h-full w-full">
+<Card.Root class="group relative h-full w-full">
+	{#if $page.data.session}
+		<div class="absolute right-0 top-0 z-20 hidden gap-1 p-1 transition-all group-hover:flex">
+			<ProjectCardToolbar {project} />
+		</div>
+	{/if}
 	<Card.Header class="text-3xl font-bold">
 		{#if project.url}
 			<a
@@ -29,11 +34,4 @@
 	<Card.Content>
 		<SvelteMarkdown source={project?.description ?? 'Lorem ipsum dolor si amet'} {renderers} />
 	</Card.Content>
-	<Card.Footer>
-		<div class="ml-auto">
-			{#if $page.data.session}
-				<ProjectCardToolbar {project} />
-			{/if}
-		</div>
-	</Card.Footer>
 </Card.Root>
