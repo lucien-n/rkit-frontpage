@@ -89,7 +89,7 @@
 		transition:fade={{ duration: 100 }}
 	>
 		<div class="flex h-full w-full items-center justify-center">
-			<Tabs.Root bind:value={currentTabValue} class="h-2/3 w-full md:w-2/3 xl:w-1/3">
+			<Tabs.Root bind:value={currentTabValue} class="h-2/3 w-full md:w-2/3 2xl:w-2/5">
 				<div
 					class="h-full w-full"
 					use:clickOutside={{
