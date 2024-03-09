@@ -5,12 +5,24 @@
 	import SvelteMarkdown from 'svelte-markdown';
 	import { renderers } from './marked';
 	import ProjectCardToolbar from './project-card-toolbar.svelte';
+	import { buttonVariants } from '$shadcn/button';
+	import { cn } from '$lib/shadcn/utils';
+	import { ExternalLink } from 'radix-icons-svelte';
 
 	export let project: Partial<Project> & Required<Pick<Project, 'id'>>;
 </script>
 
 <Card.Root class="h-full w-full">
-	<Card.Header class="text-3xl font-bold">{project?.name ?? 'Lorem Ipsum'}</Card.Header>
+	<Card.Header class="text-3xl font-bold">
+		{#if project.url}
+			<a class={cn(buttonVariants({ variant: 'link' }), 'w-fit gap-2 text-3xl')} href={project.url}>
+				{project?.name ?? 'Lorem Ipsum'}
+				<ExternalLink size={20} />
+			</a>
+		{:else}
+			{project?.name ?? 'Lorem Ipsum'}
+		{/if}
+	</Card.Header>
 	<Card.Content>
 		<SvelteMarkdown source={project?.description ?? 'Lorem ipsum dolor si amet'} {renderers} />
 	</Card.Content>
