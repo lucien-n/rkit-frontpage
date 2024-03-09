@@ -18,7 +18,7 @@
 		});
 
 	const getColSpan = (index: number) =>
-		['col-span-1', 'col-span-2', 'col-span-2', 'col-span-1'][index % 4];
+		['col-span-3', 'col-span-4', 'col-span-4', 'col-span-3'][index % 4];
 </script>
 
 <div class="flex h-full w-full items-center justify-center">
