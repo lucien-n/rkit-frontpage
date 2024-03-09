@@ -17,6 +17,7 @@
 	import { zodClient } from 'sveltekit-superforms/adapters';
 	import DescriptionTab from './tabs/description-tab.svelte';
 	import GithubTab from './tabs/github-tab.svelte';
+	import { toast } from 'svelte-sonner';
 
 	export let open: boolean = false;
 	export let closeOnClickOutside: boolean = true;
@@ -30,6 +31,7 @@
 		onResult: ({ result }) => {
 			dispatch(result.type, result);
 			if (result.type === 'success') open = false;
+			if (result.type === 'error') toast.error('An error occured');
 		}
 	});
 
