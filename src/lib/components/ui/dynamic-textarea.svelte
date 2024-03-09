@@ -11,8 +11,8 @@
 	export let value: $$Props['value'] = undefined;
 	export { className as class };
 
-	export let rows: $$Props['rows'] = undefined;
 	export let minRows: $$Props['minRows'] = 3;
+	export let rows: $$Props['rows'] = minRows;
 
 	$: {
 		if (typeof value === 'number') {

@@ -33,7 +33,7 @@
 			bind:value={$formData.description}
 			placeholder="Project description"
 			class="w-full resize-none overflow-hidden"
-			minRows={3}
+			minRows={5}
 			required
 		/>
 	</Form.Control>
