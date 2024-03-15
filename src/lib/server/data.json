@@ -3,7 +3,7 @@
 		{
 			"name": "Shortener",
 			"description": "Shortener is an url shorener service like bit.ly but simpler",
-			"repo": "rkit-shortener",
+			"repo": "rkit-url-shortener",
 			"branch": "main",
 			"url": "https://s.lucienn.dev"
 		},
