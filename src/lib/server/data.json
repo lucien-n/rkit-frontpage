@@ -1,0 +1,25 @@
+{
+	"projects": [
+		{
+			"title": "Shortener",
+			"description": "Shortener is an url shorener service like bit.ly but simpler",
+			"repo": "rkit-shortener",
+			"branch": "main",
+			"url": "https://s.lucienn.dev"
+		},
+		{
+			"title": "Leptitcoin",
+			"description": "Listing website like leboncoin",
+			"repo": "skit-leptitcoin-v2",
+			"branch": "main",
+			"url": "https://leptitcoin.lucienn.dev"
+		},
+		{
+			"title": "Todos",
+			"description": "Todo app made in 1h using sveltekit and supabase",
+			"repo": "sveltekit-todos",
+			"branch": "main",
+			"url": "https://sveltekit-todos-psi.vercel.app/"
+		}
+	]
+}
