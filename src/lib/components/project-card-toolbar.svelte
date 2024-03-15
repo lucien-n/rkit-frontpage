@@ -5,7 +5,7 @@
 	import { toast } from 'svelte-sonner';
 	import * as AlertDialog from '$shadcn/alert-dialog';
 	import { Button, buttonVariants } from '$shadcn/button';
-	import { EyeClosed, Pencil1, Trash } from 'radix-icons-svelte';
+	import { EyeClosed, EyeOpen, Pencil1, Trash } from 'radix-icons-svelte';
 	import SetProjectDialog from '$ui/set-project/set-project-dialog.svelte';
 
 	export let project: Partial<Project> & Required<Pick<Project, 'id'>>;
@@ -25,10 +25,14 @@
 		remtry(
 			async () => {
 				if (!project?.id) return;
-				await ProjectsController.set({ hidden: true }, project.id);
+				await ProjectsController.set({ hidden: !project.hidden }, project.id);
 			},
-			() => toast.success(`"${project?.name ?? project.id}" is now hidden`),
-			() => toast.error(`Couldn't hide "${project?.name ?? project.id}"`)
+			() =>
+				toast.success(
+					`"${project?.name ?? project.id}" is now ${project.hidden ? 'hidden' : 'shown'}`
+				),
+			() =>
+				toast.error(`Couldn't ${project.hidden ? 'hide' : 'show'} "${project?.name ?? project.id}"`)
 		);
 	};
 
@@ -41,7 +45,11 @@
 	</Button>
 
 	<Button variant="outline" size="icon" on:click={toggleHide}>
-		<EyeClosed />
+		{#if project.hidden}
+			<EyeClosed />
+		{:else}
+			<EyeOpen />
+		{/if}
 	</Button>
 
 	<AlertDialog.Root>
