@@ -9,6 +9,7 @@
 	import { Project } from '$shared/modules/projects/project.entity';
 	import { EyeClosed, EyeOpen } from 'radix-icons-svelte';
 	import { remult } from 'remult';
+	import * as Tabs from '$shadcn/tabs';
 
 	let projects = remlive(remult.repo(Project), []);
 	let showHidden = false;
@@ -28,17 +29,15 @@
 <div class="flex h-full w-full flex-col items-center justify-center">
 	{#if $page.data.session}
 		<div class="mb-5">
-			<Button on:click={() => (showHidden = !showHidden)} variant="outline" class="flex gap-2">
-				{#if showHidden}
-					<EyeClosed />
-					Hide hidden
-				{:else}
-					<EyeOpen />
-					Show hidden
-				{/if}
-			</Button>
+			<Tabs.Root>
+				<Tabs.List>
+					<Tabs.Trigger value="shown" on:click={() => (showHidden = false)}>Shown</Tabs.Trigger>
+					<Tabs.Trigger value="hidden" on:click={() => (showHidden = true)}>Hidden</Tabs.Trigger>
+				</Tabs.List>
+			</Tabs.Root>
 		</div>
 	{/if}
+
 	<div class="grid h-2/3 w-2/3 grid-cols-7 grid-rows-3 gap-5">
 		{#if $projects.length}
 			{#each $projects as project, index (project.id)}
