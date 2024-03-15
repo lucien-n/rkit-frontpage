@@ -14,12 +14,12 @@ export class AuthController {
 
 		const validName = ADMIN_USERNAME && ADMIN_USERNAME === name;
 		if (!validName) {
-			throw InvalidCredentialsError;
+			throw new InvalidCredentialsError();
 		}
 
 		const validPassword = ADMIN_PASSWORD && ADMIN_PASSWORD === password;
 		if (!validPassword) {
-			throw InvalidCredentialsError;
+			throw new InvalidCredentialsError();
 		}
 
 		return AuthController.createSession(name);

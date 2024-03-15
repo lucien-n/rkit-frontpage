@@ -6,11 +6,13 @@
 	import { Input } from '$shadcn/input';
 	import { Button } from '$shadcn/button';
 	import { EyeOpen, EyeClosed } from 'radix-icons-svelte';
+	import { toast } from 'svelte-sonner';
 
 	export let data: SuperValidated<Infer<SigninSchema>>;
 
 	const form = superForm(data, {
-		validators: zodClient(signinSchema)
+		validators: zodClient(signinSchema),
+		onError: ({ result }) => toast.error(result.error.message)
 	});
 
 	const { form: formData, enhance, submitting } = form;
