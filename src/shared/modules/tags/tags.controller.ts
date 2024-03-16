@@ -1,9 +1,15 @@
-import { BackendMethod, remult, type MembersToInclude } from 'remult';
+import { BackendMethod, remult, type MembersToInclude, type FindOptions } from 'remult';
 import { setTagSchema, type SetTagInput } from './schemas/set-tag.schema';
 import { parseZSchema } from '$shared/helpers/zod';
 import { Tag } from './tag.entity';
 
 export class TagsController {
+	@BackendMethod({ apiPrefix: 'tags', allowed: true })
+	static async find(options: FindOptions<Tag> = {}): Promise<Tag[] | undefined> {
+		const tags = remult.repo(Tag).find(options);
+		return remult.repo(Tag).toJson(tags);
+	}
+
 	@BackendMethod({ apiPrefix: 'tags', allowed: false })
 	static async findOne(id: string, include: MembersToInclude<Tag> = {}): Promise<Tag | undefined> {
 		const tag = remult.repo(Tag).findOne({ where: { id }, include });

@@ -17,6 +17,7 @@
 	import DescriptionTab from './tabs/description-tab.svelte';
 	import GithubTab from './tabs/github-tab.svelte';
 	import { clickOutside } from '$lib/directives/clickOutside';
+	import Dialog from '$ui/dialog.svelte';
 
 	export let open: boolean = false;
 	export let project: SetProjectInput | undefined = undefined;
@@ -71,7 +72,7 @@
 	<div class="message">{$message}</div>
 {/if}
 
-{#if open}
+<Dialog bind:open>
 	<div
 		class="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm"
 		transition:fade={{ duration: 100 }}
@@ -93,4 +94,4 @@
 			</Stepper>
 		</form>
 	</div>
-{/if}
+</Dialog>

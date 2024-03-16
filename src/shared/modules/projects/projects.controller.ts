@@ -9,6 +9,7 @@ import {
 import { Project } from './project.entity';
 import { setProjectSchema, type SetProjectInput } from './schemas/set-project.schema';
 import { parseZSchema } from '$shared/helpers/zod';
+import { TagsController } from '../tags/tags.controller';
 
 @Controller('ProjectsController')
 export class ProjectsController {
@@ -29,12 +30,14 @@ export class ProjectsController {
 
 	@BackendMethod({ apiPrefix: 'projects', allowed: Allow.authenticated })
 	static async set(input: SetProjectInput, id?: string): Promise<Project | undefined> {
-		const inputs = parseZSchema(input, setProjectSchema);
+		const { tags: tagsIds, ...inputs } = parseZSchema(input, setProjectSchema);
 
 		if (id) {
 			const existingProject = await ProjectsController.findOne(id);
 			if (existingProject) {
 				const updatedProject = remult.repo(Project).update(id, inputs);
+				if (tagsIds) await ProjectsController.setTags(id, tagsIds);
+
 				return remult.repo(Project).toJson(updatedProject);
 			}
 
@@ -42,6 +45,8 @@ export class ProjectsController {
 		}
 
 		const project = await remult.repo(Project).insert(inputs);
+		if (tagsIds) await ProjectsController.setTags(project.id, tagsIds);
+
 		return remult.repo(Project).toJson(project);
 	}
 
@@ -51,5 +56,17 @@ export class ProjectsController {
 		if (!project) throw `Project "${id}" not found`;
 
 		await remult.repo(Project).delete(id);
+	}
+
+	@BackendMethod({ apiPrefix: 'projects', allowed: false })
+	static async setTags(id: string, tagsIds: string[]) {
+		const project = await ProjectsController.findOne(id);
+		if (project) {
+			const tags = await TagsController.find({ where: { id: { $in: tagsIds } } });
+
+			if (tags) {
+				await remult.repo(Project).relations(project).tags.insert(tags);
+			}
+		}
 	}
 }

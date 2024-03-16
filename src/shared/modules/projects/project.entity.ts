@@ -1,4 +1,5 @@
-import { Entity, Fields } from 'remult';
+import { Entity, Fields, Relations } from 'remult';
+import { Tag } from '../tags/tag.entity';
 
 @Entity<Project>('projects')
 export class Project {
@@ -28,4 +29,7 @@ export class Project {
 
 	@Fields.string()
 	branch!: string;
+
+	@Relations.toMany(() => Tag)
+	tags?: Tag[];
 }
